@@ -1,22 +1,13 @@
-# See https://pypi.org/project/email-validator/
-from email_validator import validate_email, EmailNotValidError
+import requests
+from email_syntax_domain_availability import checkEmailSyntax
 
-email = input('Input email: ')
+GOOD = 'Good' # valid
+WRONGFORMAT = 'Wrong format' # basic format check of an email account
+DISABLE = 'Disable' # this mail is disabled during login
+VERIFY = 'Verify' # this mail is asking for phone number during login
+NOTEXIST = 'Not exist' # user is already deleted from the mail server or not register yet
 
-# Step 1
-# Email Syntax & domain availability test
-
-try:
-
-  emailinfo = validate_email(email) # check_deliverability=False
-  email = emailinfo.normalized
-
-except EmailNotValidError as e:
-
-  print(str(e))
-
-# Step 2
-# Use email verification apis
-
-# 1) CaptainVerify
-# See https://dashboard.captainverify.com/api-v2.html
+def validate(email):
+  systaxResult = checkEmailSyntax(email);
+  if systaxResult != True:
+    return WRONGFORMAT

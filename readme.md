@@ -1,1 +1,3 @@
-python version 3.7.4
+# Simple Email Verification with Python
+
+Uses free online API
